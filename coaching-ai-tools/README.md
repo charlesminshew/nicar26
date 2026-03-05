@@ -26,7 +26,7 @@ The tipsheet includes:
 
 ## What you'll need
 
-- A ChatGPT account (free or paid) — we'll use this for hands-on exercises
+- A ChatGPT account (free or paid). We'll use this for hands-on exercises
 - Other AI tools welcome: Claude, Gemini, Copilot, etc.
 - An interest in data and open records
 - Ability to argue with a generative AI service
@@ -34,7 +34,7 @@ The tipsheet includes:
 ## Hands-on data
 
 We'll work with Indianapolis crash data during the session:
-- **Dataset:** [https://bit.ly/ire25-nola-trees](https://bit.ly/ire25-nola-trees)
+- **Dataset:** [https://bit.ly/nicar26-indy-crashes](https://bit.ly/nicar26-indy-crashes)
 
 ## Key references
 
