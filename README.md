@@ -14,9 +14,9 @@ Materials for my sessions at the [NICAR 2026 conference](https://www.ire.org/tra
 
 ## About
 
-I'm a senior editor for data journalism at **The Atlanta Journal-Constitution**, where I lead a data team of roughly a dozen people. I build internal tools, manage data infrastructure, and support investigative reporting with data.
+I'm a senior editor for data journalism at **The Atlanta Journal-Constitution**, where I lead the newsroom's data team. I build internal tools, manage data infrastructure, and support investigative reporting with data.
 
-Reach me at [data@ajc.com](mailto:data@ajc.com) or find me at the conference.
+Reach me at [charles.minshew@ajc.com](mailto:charles.misnhew@ajc.com) or find me at the conference.
 
 ## License
 
