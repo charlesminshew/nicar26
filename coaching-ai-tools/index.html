@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coaching AI Tools for Journalism — NICAR 2026 Tipsheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #222;
+    --white: #fff;
+    --gray-100: #f5f5f5;
+    --gray-300: #ddd;
+    --gray-500: #888;
+    --gray-700: #555;
+    --red: #cc0000;
+    --green: #2c6e3f;
+    --green-light: #eaf4ed;
+    --red-light: #fdeeed;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Sans 3', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--red); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:hover { color: var(--black); }
+
+  .header {
+    border-bottom: 3px solid var(--black);
+    padding: 2rem 1.5rem 1.5rem;
+  }
+  .header-inner { max-width: 720px; margin: 0 auto; }
+  .header .back { font-size: 0.85rem; color: var(--gray-500); text-decoration: none; display: inline-block; margin-bottom: 0.8rem; }
+  .header .back:hover { color: var(--red); }
+  .header h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.8rem, 4.5vw, 2.5rem);
+    font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 0.5rem;
+  }
+  .header .byline { font-size: 1rem; font-weight: 600; }
+  .header .meta { font-size: 0.9rem; color: var(--gray-500); margin-top: 0.15rem; }
+
+  .content { max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+
+  h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.4rem; font-weight: 700; margin: 2.5rem 0 0.8rem;
+    padding-bottom: 0.3rem; border-bottom: 1px solid var(--gray-300);
+  }
+  h2:first-of-type { margin-top: 0; }
+
+  h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.1rem; font-weight: 700; margin: 1.8rem 0 0.5rem;
+  }
+
+  p { margin-bottom: 1rem; }
+
+  /* ─── Do / Don't ─── */
+  .do-dont { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1rem 0; }
+  @media (min-width: 580px) { .do-dont { grid-template-columns: 1fr 1fr; } }
+
+  .do-box, .dont-box { padding: 1.1rem 1.2rem; }
+  .do-box { background: var(--green-light); border-left: 3px solid var(--green); }
+  .dont-box { background: var(--red-light); border-left: 3px solid var(--red); }
+  .do-box h3, .dont-box h3 { margin-top: 0; margin-bottom: 0.5rem; font-size: 0.95rem; }
+  .do-box ul, .dont-box ul { padding-left: 1.1rem; font-size: 0.9rem; line-height: 1.65; }
+
+  /* ─── Quick start cards ─── */
+  .quickstart { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1.2rem 0; }
+  @media (min-width: 580px) { .quickstart { grid-template-columns: repeat(3, 1fr); } }
+
+  .qs-card {
+    padding: 1.1rem; border: 1px solid var(--gray-300); border-top: 3px solid var(--red);
+  }
+  .qs-card h4 { font-family: 'Playfair Display', Georgia, serif; font-size: 1rem; margin-bottom: 0.5rem; }
+  .qs-card p { font-size: 0.88rem; color: var(--gray-700); margin-bottom: 0; }
+
+  /* ─── Prompt pattern cards ─── */
+  .patterns { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1.2rem 0; }
+  @media (min-width: 580px) { .patterns { grid-template-columns: 1fr 1fr; } }
+
+  .pattern {
+    padding: 1.1rem; border: 1px solid var(--gray-300);
+  }
+  .pattern .label {
+    font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.07em; color: var(--red); margin-bottom: 0.4rem;
+  }
+  .pattern .prompt {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; line-height: 1.55;
+    color: var(--gray-700); background: var(--gray-100); padding: 0.6rem 0.8rem; margin-top: 0.3rem;
+  }
+  .pattern .note { font-size: 0.82rem; color: var(--gray-500); margin-top: 0.4rem; font-style: italic; }
+
+  /* ─── Code blocks ─── */
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.83rem;
+    background: var(--gray-100); padding: 1px 5px;
+  }
+  pre {
+    background: var(--black); color: #e8e0d6;
+    padding: 1rem 1.2rem; overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+    line-height: 1.6; margin: 1rem 0;
+  }
+
+  /* ─── Resources ─── */
+  .resources { list-style: none; padding: 0; }
+  .resources li { padding: 0.6rem 0; border-bottom: 1px solid var(--gray-300); font-size: 0.92rem; }
+  .resources li:last-child { border-bottom: none; }
+  .resources .label { font-weight: 600; display: block; margin-bottom: 0.1rem; color: var(--black); }
+  .resources .desc { color: var(--gray-700); font-size: 0.85rem; }
+
+  .footer { max-width: 720px; margin: 0 auto; padding: 1.5rem; font-size: 0.8rem; color: var(--gray-500); border-top: 1px solid var(--gray-300); }
+  .footer a { color: var(--gray-500); }
+
+  @media print {
+    .pattern, .qs-card { break-inside: avoid; }
+    .header { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a class="back" href="../">← All sessions</a>
+    <h1>Coaching AI Tools for Coding, Data &amp; Open Records</h1>
+    <p class="byline">Charles Minshew · The Atlanta Journal-Constitution</p>
+    <p class="meta">NICAR 2026 · Thursday, March 5 · 11:30 a.m.</p>
+  </div>
+</header>
+
+<main class="content">
+
+  <h2>The ground rules</h2>
+
+  <div class="do-dont">
+    <div class="do-box">
+      <h3>Do use AI tools for…</h3>
+      <ul>
+        <li>Writing &amp; debugging code</li>
+        <li>Interpreting sample data</li>
+        <li>Drafting public records requests</li>
+        <li>Internal documentation</li>
+        <li>Understanding unfamiliar data formats</li>
+        <li>Taking better notes for yourself</li>
+        <li>As a super-powered search engine</li>
+      </ul>
+    </div>
+    <div class="dont-box">
+      <h3>Don't use AI tools for…</h3>
+      <ul>
+        <li>Final data analysis work</li>
+        <li>Handling sensitive personal data</li>
+        <li>Processing entire datasets</li>
+        <li>Writing stories or content for the public</li>
+        <li>Replacing the work of other team members</li>
+        <li>Making editorial decisions</li>
+      </ul>
+    </div>
+  </div>
+
+  <p><strong>Important:</strong> These guidelines are suggestions. Consult with your editors or newsroom attorney for policies specific to your organization.</p>
+
+  <h2>After NICAR: What to try first</h2>
+
+  <div class="quickstart">
+    <div class="qs-card">
+      <h4>1. Draft a records request</h4>
+      <p>Pick an agency you cover. Start with a specific address or entity. Ask AI to draft the request under your state's public records law. Then iterate: expand the scope, ask for structured data, and request specific field names.</p>
+    </div>
+    <div class="qs-card">
+      <h4>2. Understand a new dataset</h4>
+      <p>Upload a sample (not the full file) to ChatGPT or Claude. Ask for a data dictionary. Ask "What questions could a reporter ask with this data?" Then ask for code to explore it in R, Python, or Excel.</p>
+    </div>
+    <div class="qs-card">
+      <h4>3. Debug or write code</h4>
+      <p>Paste your error message along with your code. Describe what you expected vs. what happened. Ask it to explain the fix — not just give you the fix. You'll learn faster and catch AI mistakes more easily.</p>
+    </div>
+  </div>
+
+  <h2>Prompt patterns that work</h2>
+
+  <p>These are reusable prompt structures you can adapt for almost any task. The key insight: <strong>be specific, assign a role, and iterate.</strong></p>
+
+  <div class="patterns">
+    <div class="pattern">
+      <p class="label">Role + Task</p>
+      <div class="prompt">You are a data reporter covering transportation in Indianapolis. Help me write an APRA request to IndyGo for bus inspection records system-wide.</div>
+      <p class="note">Assigning a role helps the AI calibrate tone, detail level, and domain knowledge.</p>
+    </div>
+    <div class="pattern">
+      <p class="label">Show me, then explain</p>
+      <div class="prompt">Write an R script that reads this CSV, calculates a rolling 7-day average of daily counts, and plots it. Then explain each step so I can modify it.</div>
+      <p class="note">Gets you working code AND understanding. Essential for learning.</p>
+    </div>
+    <div class="pattern">
+      <p class="label">Iterate &amp; expand</p>
+      <div class="prompt">Good, now expand this request to cover all IndyGo locations, not just the transit center. Include Red Line and Purple Line BRT vehicles. Also ask for data in spreadsheet format.</div>
+      <p class="note">Start narrow, then broaden. Each round builds on the last.</p>
+    </div>
+    <div class="pattern">
+      <p class="label">Ask for structured output</p>
+      <div class="prompt">Give me this data as a CSV with columns for: date, location, inspection_type, result, inspector_name, deficiencies_noted.</div>
+      <p class="note">Specifying the output format prevents vague, narrative-style answers.</p>
+    </div>
+    <div class="pattern">
+      <p class="label">Sanity check</p>
+      <div class="prompt">What assumptions are you making in this analysis? What could be wrong with this approach? What would a skeptical editor ask about these numbers?</div>
+      <p class="note">AI won't challenge itself unless you ask. Build this into your workflow.</p>
+    </div>
+    <div class="pattern">
+      <p class="label">Data dictionary</p>
+      <div class="prompt">Here's a sample of 20 rows from this dataset. Write a data dictionary explaining each column: what it contains, the data type, and any patterns or issues you notice.</div>
+      <p class="note">Upload a sample — never the whole dataset. AI is great at this.</p>
+    </div>
+  </div>
+
+  <h2>The records request workflow</h2>
+
+  <p>This was our main hands-on exercise. Here's the progression you can repeat for any state and any agency.</p>
+
+  <h3>Step 1: Be specific</h3>
+  <pre>I want to write a records request for bus inspection
+and safety reports at the Julia M. Carson Transit
+Center, 201 E. Washington St., Indianapolis, IN.</pre>
+  <p>The AI drafts a formal request citing Indiana's APRA (Ind. Code § 5-14-3-1 et seq.), specifies the address, and lists categories of records.</p>
+
+  <h3>Step 2: Iterate and expand</h3>
+  <pre>You are a reporter looking at bus safety records for
+IndyGo in Indianapolis. I want to request data
+system-wide, not just one location. Include the
+Red Line and Purple Line BRT vehicles.</pre>
+  <p>Now the request covers the entire transit system — fleet-wide inspection data, near-miss analysis records, and system-wide safety assessments.</p>
+
+  <h3>Step 3: Ask for structured data</h3>
+  <pre>Also add a paragraph requesting any available
+database or spreadsheet with fields like: vehicle ID,
+route assignment, date of inspection, type, result,
+inspector name, and deficiencies noted.</pre>
+  <p>This is the power move. Documents are useful, but structured data is what you need for analysis. Always ask for it explicitly.</p>
+
+  <h3>Step 4: Verify everything</h3>
+  <p>Before you send: verify the statute citation is correct for your state, confirm the agency name and address, check that the date range makes sense, and make sure your contact information is included. AI gets you 80% of the way there — the last 20% is your expertise.</p>
+
+  <h2>Tools we discussed</h2>
+
+  <p>We used ChatGPT for hands-on exercises, but these prompt patterns work across AI tools. Each has strengths worth knowing:</p>
+
+  <p><strong>ChatGPT</strong> (OpenAI) — Widely available, good at code and conversation. Free tier is useful; paid tiers add file uploads and longer context. <strong>Claude</strong> (Anthropic) — Strong at long documents, careful reasoning, and nuanced writing. <strong>Gemini</strong> (Google) — Integrates well with Google Workspace. <strong>GitHub Copilot</strong> — Best for inline code suggestions if you're already in VS Code.</p>
+
+  <p>The prompting principles are the same across all of them. Pick the one your newsroom allows and get comfortable with it.</p>
+
+  <h2>Resources</h2>
+
+  <ul class="resources">
+    <li>
+      <span class="label">Indiana Access to Public Records Act (APRA)</span>
+      <span class="desc"><a href="https://www.rcfp.org/open-government-guide/indiana/">Reporters Committee guide</a> — Ind. Code § 5-14-3-1 et seq.</span>
+    </li>
+    <li>
+      <span class="label">NICAR tipsheet collection</span>
+      <span class="desc"><a href="https://apps.machlis.com/shiny/nicar20_resources/">Sharon Machlis's archive</a> — Six years of NICAR slides, repos, and tipsheets.</span>
+    </li>
+    <li>
+      <span class="label">Anthropic's prompting guide</span>
+      <span class="desc"><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview">docs.anthropic.com</a> — Detailed prompting techniques for Claude (many apply broadly).</span>
+    </li>
+    <li>
+      <span class="label">OpenAI prompt engineering guide</span>
+      <span class="desc"><a href="https://platform.openai.com/docs/guides/prompt-engineering">platform.openai.com</a> — Official ChatGPT prompting best practices.</span>
+    </li>
+    <li>
+      <span class="label">Your state's public records law</span>
+      <span class="desc"><a href="https://www.rcfp.org/open-government-guide/">rcfp.org/open-government-guide</a> — Find the right statute citation for your state.</span>
+    </li>
+    <li>
+      <span class="label">IRE &amp; NICAR</span>
+      <span class="desc"><a href="https://www.ire.org/">ire.org</a> — Training, tipsheets, and community for investigative and data journalists.</span>
+    </li>
+  </ul>
+
+</main>
+
+<footer class="footer">
+  <p>Charles Minshew · <a href="mailto:data@ajc.com">data@ajc.com</a> · <a href="https://www.charlesminshew.com">charlesminshew.com</a><br>
+  NICAR 2026 · Indianapolis, IN · March 5–8, 2026</p>
+</footer>
+
+</body>
+</html>
