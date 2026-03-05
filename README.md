@@ -8,7 +8,7 @@ Materials for my sessions at the [NICAR 2026 conference](https://www.ire.org/tra
 
 | Session | When | Room | Materials |
 |---------|------|------|-----------|
-| ✍️ Coaching AI Tools for Coding and Data Tasks | Thursday, 11:30 a.m. | 102 (Level 1) | [Tipsheet & materials](coaching-ai-tools/) |
+| ✍️ Coaching AI Tools for Coding and Data Tasks | Thursday, 11:30 a.m. | 102 ^^Level^^) | [Tipsheet & materials](coaching-ai-tools/) |
 | 🕷️ Building Web Scrapers with ChatGPT and Claude | Friday, 3:45 p.m. | 102 (Level 1) | [Tipsheet & materials](web-scrapers/) |
 | 🗺️ From Spreadsheet to Map in 60 Minutes | Saturday, 10:15 a.m. | 203 (Level 2) | [Tipsheet & materials](spreadsheet-to-map/) |
 
