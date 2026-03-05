@@ -33,7 +33,7 @@ The tipsheet includes:
 
 ## Hands-on data
 
-We'll work with New Orleans tree location data during the session:
+We'll work with Indianapolis crash data during the session:
 - **Dataset:** [https://bit.ly/ire25-nola-trees](https://bit.ly/ire25-nola-trees)
 
 ## Key references
@@ -45,4 +45,4 @@ We'll work with New Orleans tree location data during the session:
 
 ## Contact
 
-Charles Minshew · [data@ajc.com](mailto:data@ajc.com)
+Charles Minshew · [charles.minshew@ajc.com](mailto:charles.minshew@ajc.com)
