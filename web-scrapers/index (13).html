@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building Web Scrapers with ChatGPT and Claude — NICAR 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #fff8e7;
+    --black: #222;
+    --tan: #B3A891;
+    --link: #7F8FB3;
+    --link-hover: #ff842e;
+    --gray: #888;
+    --border: #ccc;
+    --white: #fff;
+    --green: #4a7c59;
+    --green-bg: #f0f5ed;
+    --red-bg: #fdf0ee;
+    --red-accent: #c0392b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Roboto Slab', 'Times New Roman', serif;
+    background: var(--parchment);
+    color: var(--black);
+    line-height: 1.6;
+  }
+
+  a { color: var(--link); font-weight: bold; text-decoration: underline; }
+  a:hover { color: var(--link-hover); }
+
+  .container {
+    max-width: 800px;
+    min-width: 200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 3% 2.5% 2%;
+  }
+
+  .back {
+    font-size: 14px;
+    font-weight: normal;
+    display: inline-block;
+    margin-bottom: 1em;
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 0.3em;
+    line-height: 1.2;
+  }
+
+  .subtitle { font-size: 18px; margin-bottom: 0.2em; }
+  .meta { font-size: 15px; color: var(--gray); margin-bottom: 2em; }
+  .meta a { font-weight: normal; }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 2em 0 0.6em;
+    padding-bottom: 0.25em;
+    border-bottom: 1px solid var(--border);
+  }
+  h2:first-of-type { margin-top: 0; }
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 1.5em 0 0.4em;
+  }
+
+  p { margin-bottom: 1em; font-size: 16px; line-height: 1.65; text-align: justify; }
+
+  /* ─── Do / Don't ─── */
+  .do-dont { display: grid; grid-template-columns: 1fr; gap: 1em; margin: 1em 0; }
+  @media (min-width: 560px) { .do-dont { grid-template-columns: 1fr 1fr; } }
+
+  .do-box, .dont-box {
+    padding: 1em 1.1em;
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px rgba(10,10,10,0.1);
+  }
+  .do-box { background: var(--green-bg); border-left: 4px solid var(--green); }
+  .dont-box { background: var(--red-bg); border-left: 4px solid var(--red-accent); }
+  .do-box h3, .dont-box h3 { margin-top: 0; margin-bottom: 0.4em; font-size: 16px; }
+  .do-box ul, .dont-box ul { padding-left: 1.1em; font-size: 15px; line-height: 1.7; }
+
+  /* ─── Quick start cards ─── */
+  .quickstart { display: grid; grid-template-columns: 1fr; gap: 1em; margin: 1em 0; }
+  @media (min-width: 560px) { .quickstart { grid-template-columns: repeat(3, 1fr); } }
+
+  .qs-card {
+    padding: 1em;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--tan);
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px rgba(10,10,10,0.1);
+  }
+  .qs-card h4 { font-size: 16px; margin-bottom: 0.4em; }
+  .qs-card p { font-size: 14px; color: #444; margin-bottom: 0; text-align: left; }
+
+  /* ─── Prompt pattern cards ─── */
+  .patterns { display: grid; grid-template-columns: 1fr; gap: 1em; margin: 1em 0; }
+  @media (min-width: 560px) { .patterns { grid-template-columns: 1fr 1fr; } }
+
+  .pattern {
+    padding: 1em;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px rgba(10,10,10,0.1);
+  }
+  .pattern .label {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--tan); margin-bottom: 0.3em;
+  }
+  .pattern .prompt {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.55;
+    color: #555; background: var(--parchment); padding: 0.6em 0.8em;
+    border-radius: 3px; margin-top: 0.3em;
+  }
+  .pattern .note {
+    font-size: 13px; color: var(--gray); margin-top: 0.4em; font-style: italic;
+    text-align: left;
+  }
+
+  /* ─── Step cards ─── */
+  .steps { display: grid; grid-template-columns: 1fr; gap: 1em; margin: 1em 0; }
+
+  .step {
+    padding: 1em 1.1em;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--tan);
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px rgba(10,10,10,0.1);
+  }
+  .step .step-num {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--tan); margin-bottom: 0.3em;
+  }
+  .step h4 { font-size: 16px; margin-bottom: 0.3em; }
+  .step p { font-size: 14px; color: #444; margin-bottom: 0; text-align: left; }
+
+  /* ─── Comparison cards ─── */
+  .comparison { display: grid; grid-template-columns: 1fr; gap: 1em; margin: 1em 0; }
+  @media (min-width: 560px) { .comparison { grid-template-columns: 1fr 1fr; } }
+
+  .compare-card {
+    padding: 1em 1.1em;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px rgba(10,10,10,0.1);
+  }
+  .compare-card h4 { font-size: 16px; margin-bottom: 0.4em; }
+  .compare-card ul { padding-left: 1.1em; font-size: 14px; line-height: 1.7; color: #444; }
+
+  /* ─── Code blocks ─── */
+  code {
+    font-family: 'JetBrains Mono', monospace; font-size: 14px;
+    background: #f0ece3; padding: 1px 5px; border-radius: 2px;
+  }
+  pre {
+    background: #2d2a26; color: #e8e0d6;
+    padding: 1em 1.2em; overflow-x: auto; border-radius: 5px;
+    font-family: 'JetBrains Mono', monospace; font-size: 13px;
+    line-height: 1.6; margin: 1em 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* ─── Resources ─── */
+  .resources { list-style: none; padding: 0; }
+  .resources li { padding: 0.5em 0; border-bottom: 1px solid var(--border); font-size: 15px; }
+  .resources li:last-child { border-bottom: none; }
+  .resources .rlabel { font-weight: 700; display: block; margin-bottom: 0.1em; color: var(--black); }
+  .resources .rdesc { color: #666; font-size: 14px; }
+
+  /* ─── Footer ─── */
+  .footer {
+    width: 100%; text-align: center;
+    border-top: 1px solid var(--border); margin-top: 3%; padding: 1em 0;
+  }
+  .footer p { font-size: 14px; color: var(--gray); }
+  .footer a { font-weight: normal; color: var(--gray); }
+
+  @media print {
+    .pattern, .qs-card, .step, .compare-card { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <a class="back" href="../">← All sessions</a>
+
+  <h1>Building Web Scrapers with ChatGPT and Claude</h1>
+  <p class="subtitle">Charles Minshew · The Atlanta Journal-Constitution</p>
+  <p class="meta">NICAR 2026 · Friday, March 6 · 3:45 p.m.</p>
+
+  <h2>Why scrape on the fly?</h2>
+
+  <div class="quickstart">
+    <div class="qs-card">
+      <h4>🚨 Breaking news</h4>
+      <p>There's been an incident and you need to preserve public information from a website before it changes or disappears. School staff directories, government pages, court records.</p>
+    </div>
+    <div class="qs-card">
+      <h4>📊 No download button</h4>
+      <p>A reporter found data online but there's no export option. They need the data once for a story. You don't need a production scraper — you just need the data.</p>
+    </div>
+    <div class="qs-card">
+      <h4>🔧 Starting from zero</h4>
+      <p>You need to build a scraper you'll use again, but you don't know where to begin. AI can get you a working draft in minutes that you can refine over time.</p>
+    </div>
+  </div>
+
+  <h2>The ground rules</h2>
+
+  <div class="do-dont">
+    <div class="do-box">
+      <h3>✅ Good scraping practice</h3>
+      <ul>
+        <li>Scrape public data that's meant to be accessed</li>
+        <li>Be gentle — add delays between requests</li>
+        <li>Check for an API before scraping HTML</li>
+        <li>Save raw data before cleaning it</li>
+        <li>Document what you scraped, when, and from where</li>
+        <li>Review all AI-generated code before running it</li>
+      </ul>
+    </div>
+    <div class="dont-box">
+      <h3>🚫 Watch out for…</h3>
+      <ul>
+        <li>Scraping behind login walls or paywalls</li>
+        <li>Ignoring <code>robots.txt</code> without good reason</li>
+        <li>Hammering a server with rapid-fire requests</li>
+        <li>Running AI-generated code without reading it first</li>
+        <li>Assuming scraped data is clean or complete</li>
+        <li>Skipping the "is there a download button?" check</li>
+      </ul>
+    </div>
+  </div>
+
+  <p><strong>Important:</strong> These guidelines are just suggestions. Consult with your bosses or attorney for more specific recommendations.</p>
+
+  <h2>Approach 1: HTML table scraping</h2>
+
+  <p>This is the simplest case. The data is already in an HTML table on the page, and you can see it in the page source. Our example: passenger load data from the <a href="https://www.flycou.com/passenger-load-data/">Columbia Regional Airport</a>.</p>
+
+  <div class="steps">
+    <div class="step">
+      <p class="step-num">Step 1</p>
+      <h4>Identify your data target</h4>
+      <p>What data do you need? Where does it live? Is it on one page or spread across many? For COU, passenger data spans 2002–2026 across 25 separate pages.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">Step 2</p>
+      <h4>Inspect the page</h4>
+      <p>Right-click → Inspect. Look at the HTML source. Is the data in a <code>&lt;table&gt;</code> tag? Is it loading dynamically via JavaScript, or is it all in the source? For COU, it's a static HTML table — the data is right there in the page source.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">Step 3</p>
+      <h4>Study the URL structure</h4>
+      <p>Navigate between years and watch the URL change. COU uses <code>?ParamYear=2025</code> — that means you can loop through years by changing a number. This is your pagination strategy.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">Step 4</p>
+      <h4>Save the HTML source</h4>
+      <p>View Source (Ctrl+U / Cmd+U) and save the page as a text file. This gives the AI the full HTML structure to work with — much better than describing the table yourself.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">Step 5</p>
+      <h4>Prompt your AI tool</h4>
+      <p>Give it everything: the URL pattern, the year range, and the saved HTML. Let it write the scraper. See the prompt template below.</p>
+    </div>
+  </div>
+
+  <h3>Example prompt for HTML scraping</h3>
+
+  <div class="pattern" style="margin: 1em 0;">
+    <p class="label">HTML table scraper</p>
+    <div class="prompt">I want to write a script that will collect data from this web page that has a table with passenger load data for the Columbia Regional Airport.<br><br>The page is an HTML table. The original URL of the table for 2002 is https://www.flycou.com/passenger-load-data/?ParamAirline&ParamYear=2002 and the data continues until 2025.<br><br>I'm copying and pasting the HTML of that first page for review.<br><br>[paste HTML source here]</div>
+    <p class="note">Attach or paste the saved HTML file. The AI will identify the table class, column headers, and build the parser for you.</p>
+  </div>
+
+  <h2>Approach 2: Finding hidden APIs</h2>
+
+  <p>Sometimes the data isn't in the HTML at all — the page loads it from a backend API using JavaScript. The browser's Network tab reveals these hidden data sources. Our example: the <a href="https://recordsearch.ethics.ga.gov">Georgia Ethics Commission</a> campaign finance search.</p>
+
+  <div class="steps">
+    <div class="step">
+      <p class="step-num">Step 1</p>
+      <h4>Open DevTools before you interact</h4>
+      <p>Right-click → Inspect → Network tab. Filter by <strong>Fetch/XHR</strong> to cut the noise. Now interact with the page — search, filter, paginate — and watch the requests appear.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">Step 2</p>
+      <h4>Find the data request</h4>
+      <p>Look for the request that returns your data. On the GA Ethics site, it's called <code>GetTransactionDetails</code>. Click on it to see the details.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">Step 3</p>
+      <h4>Copy the payload</h4>
+      <p>Click the <strong>Payload</strong> tab. This shows the JSON the page sends to the API. Every empty field is a filter you can fill in. <code>pageNumber</code> and <code>pageSize</code> control pagination.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">Step 4</p>
+      <h4>Check the response</h4>
+      <p>Click the <strong>Response</strong> tab. This is the structured JSON data coming back. Look for a <code>totalItems</code> field — it tells you how much data exists. Copy one record as a sample.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">Step 5</p>
+      <h4>Copy the endpoint URL</h4>
+      <p>Click the <strong>Headers</strong> tab. The <strong>Request URL</strong> is the API endpoint. Copy it. You now have everything you need to prompt the AI.</p>
+    </div>
+  </div>
+
+  <h3>Example prompt for API scraping</h3>
+
+  <div class="pattern" style="margin: 1em 0;">
+    <p class="label">API-based scraper</p>
+    <div class="prompt">I found an API endpoint that returns Georgia campaign finance contribution data as JSON.<br><br>Endpoint: https://api-recordsearch.ethics.ga.gov/api/PublicTransactionDetails/GetTransactionDetails<br><br>Here's the payload it expects:<br>[paste payload JSON]<br><br>Here's a sample response record:<br>[paste one record from the response]<br><br>Write me a Python script that pulls all contributions between 2024-01-01 and 2024-12-31 and saves them to a CSV file. Handle pagination using the pageNumber field.</div>
+    <p class="note">Give the AI all three pieces: the endpoint URL, the payload structure, and a sample response. It will figure out the rest.</p>
+  </div>
+
+  <h3>Testing with curl</h3>
+
+  <p>Before writing a full script, you can test the API directly from your terminal. This confirms the endpoint works and helps you understand the response structure.</p>
+
+<pre>curl -s -X POST \
+  "https://api-recordsearch.ethics.ga.gov/api/\
+PublicTransactionDetails/GetTransactionDetails" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "pageNumber": 1,
+    "pageSize": 5,
+    "sortBy": "Transaction Date",
+    "sortType": "desc",
+    "transactionTypeCode": "TCON",
+    "filerName": "",
+    "sourceName": "",
+    "transactionAmountMax": null,
+    "sourceTypeCode": "",
+    "committeeType": "",
+    "electionID": "",
+    "reportName": "",
+    "toDate": "2024-12-31",
+    "fromDate": "2024-01-01",
+    "byState": "",
+    "electionType": "",
+    "electionYear": "",
+    "filerRegistrationGuid": null
+  }' | python3 -m json.tool</pre>
+
+  <p>Use <code>| tail -10</code> instead of <code>json.tool</code> to jump straight to the <code>totalItems</code> count at the bottom of the response.</p>
+
+  <h2>Two approaches compared</h2>
+
+  <div class="comparison">
+    <div class="compare-card">
+      <h4>🌐 HTML Table Scraping</h4>
+      <ul>
+        <li>Data is visible in the page source</li>
+        <li>Pagination via URL parameters</li>
+        <li>Parse with BeautifulSoup or rvest</li>
+        <li>What you see is what you get</li>
+        <li>Best for: static pages, simple tables</li>
+      </ul>
+    </div>
+    <div class="compare-card">
+      <h4>🔌 API Calls</h4>
+      <ul>
+        <li>Data loads via JavaScript in the background</li>
+        <li>Pagination via payload fields</li>
+        <li>Response is structured JSON</li>
+        <li>Often includes fields not shown on the page</li>
+        <li>Best for: search interfaces, dynamic sites</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Prompt patterns for scraping</h2>
+
+  <p>Reusable prompt structures you can adapt for any scraping task.</p>
+
+  <div class="patterns">
+    <div class="pattern">
+      <p class="label">Reconnaissance</p>
+      <div class="prompt">Here's the HTML source of a page with data I need to scrape. Identify the table structure, column headers, and suggest the best approach to extract this data. [paste HTML]</div>
+      <p class="note">Start here when you're not sure what you're looking at.</p>
+    </div>
+    <div class="pattern">
+      <p class="label">Pagination handler</p>
+      <div class="prompt">This script works for one page. The URL pattern is [URL]?page=1 and there are 25 pages. Modify it to loop through all pages with a 2-second delay between requests and combine the results.</div>
+      <p class="note">Always add a delay. Be kind to servers.</p>
+    </div>
+    <div class="pattern">
+      <p class="label">Error handling</p>
+      <div class="prompt">Add error handling to this scraper: retry failed requests up to 3 times with exponential backoff, log any pages that fail, and save progress after each page so I don't lose data if it crashes.</div>
+      <p class="note">Essential for large scraping jobs. Ask for this after the basic script works.</p>
+    </div>
+    <div class="pattern">
+      <p class="label">Debug help</p>
+      <div class="prompt">This scraper returns empty results. Here's my code and the HTML of the page I'm trying to scrape. What's wrong? [paste code and HTML]</div>
+      <p class="note">Give the AI both the code and the target HTML so it can compare selectors.</p>
+    </div>
+    <div class="pattern">
+      <p class="label">Format conversion</p>
+      <div class="prompt">I have this working Python scraper but I need it in R using rvest. Convert it and explain the key differences.</div>
+      <p class="note">Useful when your team works in a different language.</p>
+    </div>
+    <div class="pattern">
+      <p class="label">Data cleaning</p>
+      <div class="prompt">I scraped this data but the numbers have commas and dollar signs, dates are inconsistent, and some cells have asterisks. Write a cleaning script that standardizes everything and outputs a clean CSV.</div>
+      <p class="note">Scraping is only half the job. Always budget time for cleaning.</p>
+    </div>
+  </div>
+
+  <h2>What to tell the AI (checklist)</h2>
+
+  <p>The more context you give, the better the output. Before prompting, gather these:</p>
+
+  <div class="do-dont">
+    <div class="do-box">
+      <h3>📋 For HTML scraping</h3>
+      <ul>
+        <li>The URL (and how it changes between pages)</li>
+        <li>The saved HTML source of one page</li>
+        <li>What columns/fields you want to extract</li>
+        <li>The year range or page range to cover</li>
+        <li>Your preferred language (Python, R, etc.)</li>
+        <li>Desired output format (CSV, JSON, etc.)</li>
+      </ul>
+    </div>
+    <div class="do-box">
+      <h3>📋 For API scraping</h3>
+      <ul>
+        <li>The endpoint URL (from the Headers tab)</li>
+        <li>The full request payload (from the Payload tab)</li>
+        <li>A sample response record (from the Response tab)</li>
+        <li>The <code>totalItems</code> count for your query</li>
+        <li>Any filters you want to apply</li>
+        <li>Desired output format (CSV, JSON, etc.)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Common gotchas</h2>
+
+  <div class="steps">
+    <div class="step">
+      <p class="step-num">Gotcha</p>
+      <h4>The AI scrapes the sample, not the site</h4>
+      <p>If you paste HTML into the prompt, the AI might just extract data from that sample instead of writing a scraper. Be explicit: "Write a script that fetches and parses the page — don't just extract from the sample I gave you."</p>
+    </div>
+    <div class="step">
+      <p class="step-num">Gotcha</p>
+      <h4>JavaScript-rendered content</h4>
+      <p>If View Source shows empty tables but the page displays data, it's loading via JavaScript. Check the Network tab for API calls. If there's no API, you may need Selenium or Playwright — ask the AI to use those instead.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">Gotcha</p>
+      <h4>The scraper works once, then breaks</h4>
+      <p>Websites change. Save your raw HTML/JSON responses alongside the parsed data. If the scraper breaks later, you'll still have the data you already collected.</p>
+    </div>
+    <div class="step">
+      <p class="step-num">Gotcha</p>
+      <h4>Rate limiting and blocking</h4>
+      <p>If you're getting 403 or 429 errors, you're probably hitting the server too fast. Add delays between requests. Start with 2 seconds and increase if needed. Some sites require headers like <code>User-Agent</code> — ask the AI to add appropriate headers.</p>
+    </div>
+  </div>
+
+  <h2>Resources</h2>
+
+  <ul class="resources">
+    <li>
+      <span class="rlabel">Columbia Regional Airport — Passenger Load Data</span>
+      <span class="rdesc"><a href="https://www.flycou.com/passenger-load-data/">flycou.com/passenger-load-data</a> — Our HTML table scraping example. Data from 2002–present.</span>
+    </li>
+    <li>
+      <span class="rlabel">Georgia Ethics Commission — Campaign Finance Search</span>
+      <span class="rdesc"><a href="https://recordsearch.ethics.ga.gov">recordsearch.ethics.ga.gov</a> — Our API scraping example. 2.5M+ contribution records.</span>
+    </li>
+    <li>
+      <span class="rlabel">Chrome DevTools documentation</span>
+      <span class="rdesc"><a href="https://developer.chrome.com/docs/devtools/network/">developer.chrome.com</a> — Official guide to the Network tab.</span>
+    </li>
+    <li>
+      <span class="rlabel">BeautifulSoup documentation</span>
+      <span class="rdesc"><a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">crummy.com</a> — Python library for parsing HTML.</span>
+    </li>
+    <li>
+      <span class="rlabel">rvest package for R</span>
+      <span class="rdesc"><a href="https://rvest.tidyverse.org/">rvest.tidyverse.org</a> — Tidyverse web scraping in R.</span>
+    </li>
+    <li>
+      <span class="rlabel">Anthropic's prompting guide</span>
+      <span class="rdesc"><a href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview">docs.anthropic.com</a> — Detailed prompting techniques for Claude.</span>
+    </li>
+    <li>
+      <span class="rlabel">OpenAI prompt engineering guide</span>
+      <span class="rdesc"><a href="https://platform.openai.com/docs/guides/prompt-engineering">platform.openai.com</a> — Official ChatGPT prompting best practices.</span>
+    </li>
+    <li>
+      <span class="rlabel">IRE &amp; NICAR</span>
+      <span class="rdesc"><a href="https://www.ire.org/">ire.org</a> — Training, tipsheets, and community for investigative and data journalists.</span>
+    </li>
+  </ul>
+
+  <div class="footer">
+    <p>Charles Minshew · <a href="mailto:charles.minshew@ajc.com">charles.minshew@ajc.com</a> · <a href="https://www.charlesminshew.com">charlesminshew.com</a><br>
+    NICAR 2026 · Indianapolis, IN · March 5–8, 2026</p>
+  </div>
+
+</div>
+
+</body>
+</html>
