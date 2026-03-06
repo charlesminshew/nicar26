@@ -13,19 +13,17 @@ Charles Minshew, The Atlanta Journal-Constitution
 - When to scrape vs. when to look for an API or bulk download
 - Ethics and legal considerations
 
-## Materials
+## Tipsheet
 
-🚧 **Coming soon** — Materials will be posted here before the session.
-
-<!-- TODO: Add tipsheet, example scripts, and sample target pages -->
+**[View the online tipsheet →](https://charlesminshew.github.io/nicar26/web-scrapers/)**
 
 ## What you'll need
 
-- A laptop with Python 3 installed (or access to Google Colab)
+- A laptop with Python installed. R is also an option depending on how you write your prompts.
 - A ChatGPT or Claude account
-- A code editor (VS Code recommended)
+- A code editor (I like Sublime)
 - Basic comfort with the command line
 
 ## Contact
 
-Charles Minshew · [data@ajc.com](mailto:data@ajc.com)
+Charles Minshew · [charles.minshew@ajc.com](mailto:charles.minshew@ajc.com)
