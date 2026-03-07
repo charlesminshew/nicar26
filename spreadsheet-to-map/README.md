@@ -26,7 +26,7 @@ This session is designed as a guided exercise with minimal lecture and constant 
 
 | File | Used in |
 |------|---------|
-| `waffle_house_locations_090525.csv` | Exercise 1, Bonus |
+| `waffle_houses.csv` | Exercise 1, Bonus |
 | `tl_2023_us_state.shp` | Exercise 1 |
 | `tl_2023_us_county.shp` | Exercise 2, Bonus |
 | `medinc_county.csv` | Exercise 2 |
@@ -106,7 +106,7 @@ Use the **Count Points in Polygon** tool:
 **Processing Toolbox → Count Points in Polygon**
 
 - Polygon layer: `tl_2023_us_county`
-- Points layer: `waffle_house_locations`
+- Points layer: `waffle_houses`
 
 The output layer will include a field counting how many Waffle Houses fall inside each county.
 
